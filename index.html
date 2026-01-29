@@ -259,6 +259,52 @@
             color: #800000;
         }
 
+        /* Desktop: larger mail window text and mail icon (~2x) */
+        @media (min-width: 701px) {
+            .mail-btn {
+                width: clamp(6rem, 16vw, 9rem);
+            }
+            .mail-btn .mail-caption {
+                font-size: clamp(1.3rem, 3vw, 1.6rem);
+            }
+            .mail-window,
+            .mail-window-header,
+            .mail-window-close,
+            .mail-row label,
+            .mail-row input,
+            .mail-send-btn,
+            .mail-body-row textarea,
+            .mail-status {
+                font-size: 22px;
+            }
+            .mail-window-body {
+                padding: 20px;
+            }
+            .mail-row {
+                gap: 12px;
+                margin-bottom: 12px;
+            }
+            .mail-row label {
+                min-width: 90px;
+            }
+            .mail-row input {
+                padding: 4px 8px;
+            }
+            .mail-send-btn {
+                padding: 4px 20px;
+            }
+            .mail-body-row {
+                margin-top: 16px;
+            }
+            .mail-body-row textarea {
+                min-height: 160px;
+                padding: 8px;
+            }
+            .mail-status {
+                margin-top: 10px;
+            }
+        }
+
         /* Prevent iOS zoom on input focus by using 16px font on mobile */
         @media (max-width: 700px) {
             .mail-row input,
@@ -20563,6 +20609,9 @@
         if (window.innerWidth <= 700) {
             btnX += 40;
             btnY += 10;
+        } else {
+            btnX -= 10;
+            btnY -= 10;
         }
         
         mailBtn.style.left = btnX + 'px';
