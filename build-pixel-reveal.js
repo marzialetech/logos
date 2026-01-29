@@ -11,6 +11,7 @@ const path = require('path');
 
 const dir = path.resolve(__dirname);
 const angelSvg = fs.readFileSync(path.join(dir, 'angel-silhouette-pixelated.svg'), 'utf8');
+fs.writeFileSync(path.join(dir, 'favicon.svg'), angelSvg.replace(/fill="currentColor"/, 'fill="#fff"'), 'utf8');
 const manOnBoatSvg = fs.readFileSync(path.join(dir, 'two-figures-pixelated.svg'), 'utf8');
 const martechSvg = fs.readFileSync(path.join(dir, 'martechtext-pixelated.svg'), 'utf8');
 const cursorSvg = fs.readFileSync(path.join(dir, 'cursor.svg'), 'utf8');
@@ -35,14 +36,15 @@ const html = `<!DOCTYPE html>
         * { box-sizing: border-box; }
         body {
             margin: 0;
-            min-height: 100vh;
+            height: 100vh;
+            overflow: hidden;
             background: #2563eb;
             color: #fff;
             font-family: system-ui, -apple-system, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 15vh 0 0 0;
+            padding: 0;
             cursor: url("${cursorDataUrl}") 8 2, auto;
         }
         .header {
@@ -71,9 +73,9 @@ const html = `<!DOCTYPE html>
             justify-items: center;
             align-items: start;
             width: 100%;
-            max-width: 1600px;
-            padding: clamp(7rem, 22vw, 16rem) clamp(0.75rem, 4vw, 2rem) clamp(1rem, 3vw, 2rem);
-            margin: 0 auto;
+            max-width: 3200px;
+            padding: clamp(2rem, 8vw, 6rem) clamp(0.75rem, 4vw, 2rem) clamp(1rem, 3vw, 2rem);
+            margin: -10vh auto 0 auto;
         }
         .stage .figure {
             display: flex;
@@ -89,14 +91,40 @@ const html = `<!DOCTYPE html>
         .stage .figure svg {
             display: block;
             width: 100%;
-            max-width: min(95vw, 1872px);
+            max-width: min(50vw, 1600px);
             height: auto;
             object-fit: contain;
         }
+        .reel {
+            width: 100%;
+            border-top: 2px solid #fff;
+            border-bottom: 2px solid #fff;
+            background: transparent;
+            padding: clamp(0.5rem, 1.5vw, 1rem) 0;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .reel-track {
+            display: flex;
+            gap: clamp(2rem, 5vw, 4rem);
+            animation: marquee 20s linear infinite;
+            width: max-content;
+        }
+        .reel-track span {
+            font-size: clamp(0.875rem, 2vw, 1.25rem);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            color: #fff;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
         @media (max-width: 700px) {
             body {
-                height: 100vh;
-                overflow: hidden;
+                padding-top: 15vh;
             }
             .header {
                 padding: clamp(0.75rem, 2vw, 1.5rem) clamp(0.5rem, 2vw, 1rem);
@@ -106,6 +134,7 @@ const html = `<!DOCTYPE html>
                 gap: clamp(0.25rem, 1vw, 0.75rem);
                 padding: 0 clamp(0.25rem, 1vw, 0.5rem) clamp(0.5rem, 2vw, 1rem);
                 align-items: start;
+                margin-top: 0;
             }
             .stage .figure svg {
                 max-width: 60vw;
@@ -131,6 +160,23 @@ ${manOnBoatInline}
         </div>
         <div class="figure" id="figAngel">
 ${angelInline}
+        </div>
+    </div>
+
+    <div class="reel">
+        <div class="reel-track">
+            <span>Client One</span>
+            <span>Client Two</span>
+            <span>Client Three</span>
+            <span>Client Four</span>
+            <span>Client Five</span>
+            <span>Client Six</span>
+            <span>Client One</span>
+            <span>Client Two</span>
+            <span>Client Three</span>
+            <span>Client Four</span>
+            <span>Client Five</span>
+            <span>Client Six</span>
         </div>
     </div>
 
