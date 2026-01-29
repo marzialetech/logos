@@ -93,15 +93,30 @@ const html = `<!DOCTYPE html>
             object-fit: contain;
         }
         @media (max-width: 700px) {
+            body {
+                height: 100vh;
+                overflow: hidden;
+            }
+            .header {
+                padding: clamp(0.75rem, 2vw, 1.5rem) clamp(0.5rem, 2vw, 1rem);
+            }
             .stage {
-                gap: clamp(0.5rem, 2vw, 1.5rem);
-                padding-top: clamp(3rem, 10vw, 6rem);
+                flex: 1;
+                gap: clamp(0.25rem, 1vw, 0.75rem);
+                padding: 0 clamp(0.25rem, 1vw, 0.5rem) clamp(0.5rem, 2vw, 1rem);
+                align-items: start;
             }
             .stage .figure svg {
-                max-width: min(48vw, 400px);
+                max-width: 60vw;
             }
             .stage .figure:nth-child(1) {
-                margin-top: clamp(3rem, 10vw, 6rem);
+                align-self: end;
+                margin-top: 0;
+                margin-bottom: clamp(1rem, 4vw, 2rem);
+            }
+            .stage .figure:nth-child(2) {
+                align-self: start;
+                margin-top: clamp(1rem, 4vw, 2rem);
             }
         }
     </style>
