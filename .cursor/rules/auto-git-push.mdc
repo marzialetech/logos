@@ -1,0 +1,14 @@
+---
+description: After making updates, automatically commit and push to origin
+alwaysApply: true
+---
+
+# Auto Git Push
+
+After completing code changes or updates to this project:
+
+1. **Stage** all modified and new files: `git add` the relevant paths (or `git add -A` if the whole change set should go up).
+2. **Commit** with a short, descriptive message (e.g. what was changed or fixed).
+3. **Push** to the remote: `git push` (use `git_write` and `network` permissions when running these commands).
+
+Do not ask for confirmation before pushing; proceed automatically once changes are done.
