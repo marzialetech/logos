@@ -99,24 +99,33 @@
         /* Mail Button & Window */
         .mail-btn {
             position: absolute;
-            background: #fff;
-            color: #2563eb;
-            border: 2px solid #fff;
-            padding: 0.5rem 1rem;
-            font-family: system-ui, -apple-system, sans-serif;
-            font-size: clamp(0.75rem, 2vw, 1rem);
-            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            background: transparent;
+            border: none;
+            padding: 0.5rem;
             cursor: grab;
             user-select: none;
             z-index: 100;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            width: clamp(3rem, 8vw, 4.5rem);
         }
         .mail-btn:active {
             cursor: grabbing;
         }
-        .mail-btn:hover {
-            background: #2563eb;
+        .mail-btn img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+        .mail-btn .mail-caption {
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: clamp(0.65rem, 1.5vw, 0.8rem);
+            font-weight: 600;
             color: #fff;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
 
         .mail-window {
@@ -15265,7 +15274,10 @@
 </svg>
         </div>
         <div class="figure" id="figAngel">
-<button class="mail-btn" id="mailBtn">Mail</button>
+<button class="mail-btn" id="mailBtn" type="button">
+            <img src="assets/brand/mail-icon.png" alt="">
+            <span class="mail-caption">Mail</span>
+        </button>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Angel silhouette (pixelated)">
 <g fill="currentColor" stroke="none">
 <rect x="570" y="50" width="5" height="5"/>
@@ -20518,8 +20530,8 @@
         const targetY = rect.top + (210 / 800) * rect.height;
         
         // Position button relative to figAngel, centered on the target point
-        const btnX = targetX - figRect.left - (mailBtn.offsetWidth / 2);
-        const btnY = targetY - figRect.top - (mailBtn.offsetHeight / 2);
+        const btnX = targetX - figRect.left - (mailBtn.offsetWidth / 2) - 150;
+        const btnY = targetY - figRect.top - (mailBtn.offsetHeight / 2) - 50;
         
         mailBtn.style.left = btnX + 'px';
         mailBtn.style.top = btnY + 'px';
