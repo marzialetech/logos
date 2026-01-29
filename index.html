@@ -20565,11 +20565,13 @@
 
     function makeDraggable(el, handle, onTap) {
         handle = handle || el;
+        let isActive = false;
         let dragStarted = false;
         let startX, startY, origX, origY;
 
         function onStart(e) {
             if (e.target.tagName === 'BUTTON' && e.target !== handle && e.target !== el) return;
+            isActive = true;
             const touch = e.touches ? e.touches[0] : e;
             startX = touch.clientX;
             startY = touch.clientY;
@@ -20581,6 +20583,7 @@
         }
 
         function onMove(e) {
+            if (!isActive) return;
             const touch = e.touches ? e.touches[0] : e;
             const dx = touch.clientX - startX;
             const dy = touch.clientY - startY;
@@ -20599,10 +20602,12 @@
         }
 
         function onEnd(e) {
+            if (!isActive) return;
             if (e.type === 'touchend' && onTap && !dragStarted) {
                 onTap();
                 lastOpenedFromTap = Date.now();
             }
+            isActive = false;
             dragStarted = false;
         }
 
