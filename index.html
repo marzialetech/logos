@@ -256,6 +256,14 @@
         .mail-status.error {
             color: #800000;
         }
+
+        /* Prevent iOS zoom on input focus by using 16px font on mobile */
+        @media (max-width: 700px) {
+            .mail-row input,
+            .mail-body-row textarea {
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
 <body>
