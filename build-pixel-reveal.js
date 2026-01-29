@@ -97,6 +97,7 @@ const html = `<!DOCTYPE html>
             body {
                 height: 100vh;
                 overflow: hidden;
+                padding-top: 15vh;
             }
             .header {
                 padding: clamp(0.75rem, 2vw, 1.5rem) clamp(0.5rem, 2vw, 1rem);
