@@ -20551,47 +20551,59 @@
         let btnY = targetY - figRect.top - (mailBtn.offsetHeight / 2) - 50;
         
         if (window.innerWidth <= 700) {
-            btnX += 50;
-            btnY += 0;
+            btnX += 40;
+            btnY += 10;
         }
         
         mailBtn.style.left = btnX + 'px';
         mailBtn.style.top = btnY + 'px';
     }
 
-    // Make an element draggable
-    function makeDraggable(el, handle) {
+    // Make an element draggable (with movement threshold so taps work on mobile)
+    const DRAG_THRESHOLD_PX = 10;
+    let lastOpenedFromTap = 0;
+
+    function makeDraggable(el, handle, onTap) {
         handle = handle || el;
-        let isDragging = false;
+        let dragStarted = false;
         let startX, startY, origX, origY;
 
         function onStart(e) {
             if (e.target.tagName === 'BUTTON' && e.target !== handle && e.target !== el) return;
-            isDragging = true;
             const touch = e.touches ? e.touches[0] : e;
             startX = touch.clientX;
             startY = touch.clientY;
             const rect = el.getBoundingClientRect();
             origX = rect.left;
             origY = rect.top;
-            el.style.position = 'fixed';
-            el.style.left = origX + 'px';
-            el.style.top = origY + 'px';
-            el.style.margin = '0';
-            e.preventDefault();
+            dragStarted = false;
+            if (e.touches) e.preventDefault();
         }
 
         function onMove(e) {
-            if (!isDragging) return;
             const touch = e.touches ? e.touches[0] : e;
             const dx = touch.clientX - startX;
             const dy = touch.clientY - startY;
-            el.style.left = (origX + dx) + 'px';
-            el.style.top = (origY + dy) + 'px';
+            if (!dragStarted && (Math.abs(dx) > DRAG_THRESHOLD_PX || Math.abs(dy) > DRAG_THRESHOLD_PX)) {
+                dragStarted = true;
+                el.style.position = 'fixed';
+                el.style.left = origX + 'px';
+                el.style.top = origY + 'px';
+                el.style.margin = '0';
+            }
+            if (dragStarted) {
+                el.style.left = (origX + dx) + 'px';
+                el.style.top = (origY + dy) + 'px';
+                if (e.touches) e.preventDefault();
+            }
         }
 
-        function onEnd() {
-            isDragging = false;
+        function onEnd(e) {
+            if (e.type === 'touchend' && onTap && !dragStarted) {
+                onTap();
+                lastOpenedFromTap = Date.now();
+            }
+            dragStarted = false;
         }
 
         handle.addEventListener('mousedown', onStart);
@@ -20650,10 +20662,11 @@
     // Initialize
     function init() {
         positionMailBtn();
-        makeDraggable(mailBtn);
+        makeDraggable(mailBtn, null, openMailWindow);
         makeDraggable(mailWindow, mailWindowHeader);
 
         mailBtn.addEventListener('click', function(e) {
+            if (Date.now() - lastOpenedFromTap < 400) return; // Already opened from tap on mobile
             if (e.detail === 0) return; // Ignore if triggered by drag
             openMailWindow();
         });
