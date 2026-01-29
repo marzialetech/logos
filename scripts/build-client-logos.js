@@ -21,8 +21,9 @@ const clients = [
   { name: 'moose', png: 'C37E7FCD-FAC2-48C7-87C2-BB3B5C5D59F0-23b8bb08-50b1-4ce4-971f-33351565f24c.png' },
 ];
 
-// Fallback: Cursor assets path (absolute)
-const cursorAssets = '/Users/jjmarzia/.cursor/projects/Users-jjmarzia-Desktop-logos/assets';
+// Fallback: Cursor assets path derived from project dir (works after moving the repo)
+const projectSlug = dir.replace(/^\/+/, '').replace(/\//g, '-');
+const cursorAssets = path.join(process.env.HOME || '', '.cursor', 'projects', projectSlug, 'assets');
 
 function findPng(name, pngFile) {
   const inSources = path.join(assetsDir, pngFile);

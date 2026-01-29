@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>marziale</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="assets/brand/favicon.svg">
     <style>
         * { box-sizing: border-box; }
         body {
@@ -68,38 +68,6 @@
             height: auto;
             object-fit: contain;
         }
-        .reel {
-            width: 100%;
-            border-top: 2px solid #fff;
-            border-bottom: 2px solid #fff;
-            background: transparent;
-            padding: clamp(0.5rem, 1.5vw, 1rem) 0;
-            overflow: hidden;
-            flex-shrink: 0;
-            margin-bottom: clamp(0.75rem, 2vw, 1.5rem);
-        }
-        .reel-track {
-            display: flex;
-            align-items: center;
-            gap: clamp(6rem, 15vw, 12rem);
-            animation: marquee 20s linear infinite;
-            width: max-content;
-        }
-        .reel-track img {
-            height: clamp(1.5rem, 4vw, 2.5rem);
-            width: auto;
-            object-fit: contain;
-        }
-        .reel-track img.logo-lg {
-            height: clamp(4.5rem, 12vw, 7.5rem);
-        }
-        .reel-track img.logo-md {
-            height: clamp(3rem, 8vw, 5rem);
-        }
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
         @media (max-width: 700px) {
             body {
                 padding-top: 15vh;
@@ -124,9 +92,6 @@
             .stage .figure:nth-child(2) {
                 align-self: start;
                 margin-top: clamp(1rem, 4vw, 2rem);
-            }
-            .reel {
-                margin-top: -10vh;
             }
         }
     </style>
@@ -20306,20 +20271,6 @@
         </div>
     </div>
 
-    <div class="reel">
-        <div class="reel-track">
-            <img class="logo-lg" src="client-blizzard.svg" alt="The Blizzard">
-            <img class="logo-lg" src="client-moose.svg" alt="Hometown Country Moose">
-            <img class="logo-md" src="client-pixamation.svg" alt="Pixamation Inc.">
-            <img class="logo-lg" src="client-redbarn.svg" alt="Red Barn Meats Inc.">
-            <img src="client-shue.svg" alt="Shue">
-            <img class="logo-lg" src="client-blizzard.svg" alt="The Blizzard">
-            <img class="logo-lg" src="client-moose.svg" alt="Hometown Country Moose">
-            <img class="logo-md" src="client-pixamation.svg" alt="Pixamation Inc.">
-            <img class="logo-lg" src="client-redbarn.svg" alt="Red Barn Meats Inc.">
-            <img src="client-shue.svg" alt="Shue">
-        </div>
-    </div>
 
     <script>
 (function () {
