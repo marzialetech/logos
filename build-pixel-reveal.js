@@ -94,12 +94,14 @@ const html = `<!DOCTYPE html>
         }
         @media (max-width: 700px) {
             .stage {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                padding-top: clamp(2rem, 5vw, 3rem);
+                gap: clamp(0.5rem, 2vw, 1.5rem);
+                padding-top: clamp(3rem, 10vw, 6rem);
+            }
+            .stage .figure svg {
+                max-width: min(48vw, 400px);
             }
             .stage .figure:nth-child(1) {
-                margin-top: 0;
+                margin-top: clamp(3rem, 10vw, 6rem);
             }
         }
     </style>
