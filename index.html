@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>marziale</title>
     <link rel="icon" type="image/svg+xml" href="assets/brand/favicon.svg">
+    <link href="https://fonts.cdnfonts.com/css/w95fa" rel="stylesheet">
     <style>
         * { box-sizing: border-box; }
         body {
@@ -13,7 +14,7 @@
             overflow: hidden;
             background: #2563eb;
             color: #fff;
-            font-family: system-ui, -apple-system, sans-serif;
+            font-family: "W95FA", "MS Sans Serif", "Microsoft Sans Serif", Geneva, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -121,123 +122,139 @@
             object-fit: contain;
         }
         .mail-btn .mail-caption {
-            font-family: system-ui, -apple-system, sans-serif;
+            font-family: inherit;
             font-size: clamp(0.65rem, 1.5vw, 0.8rem);
-            font-weight: 600;
+            font-weight: 400;
             color: #fff;
             text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
 
+        /* Retro Windows 95/97 mail window */
         .mail-window {
             position: fixed;
-            background: #fff;
-            color: #1e293b;
-            border: 2px solid #fff;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+            background: #c0c0c0;
+            color: #000;
+            border: 2px solid;
+            border-color: #dfdfdf #000 #000 #dfdfdf;
+            box-shadow: 2px 2px 0 #404040;
             z-index: 200;
             min-width: 320px;
             max-width: 90vw;
-            font-family: system-ui, -apple-system, sans-serif;
+            font-family: inherit;
             display: none;
+            font-size: 11px;
         }
         .mail-window.open {
             display: block;
         }
         .mail-window-header {
-            background: #2563eb;
+            background: linear-gradient(90deg, #000080 0%, #1084d0 100%);
             color: #fff;
-            padding: 0.5rem 0.75rem;
-            font-weight: 600;
-            font-size: 0.875rem;
+            padding: 3px 6px 4px 6px;
+            font-size: 11px;
             cursor: grab;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid #000;
         }
         .mail-window-header:active {
             cursor: grabbing;
         }
         .mail-window-close {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 1.25rem;
+            background: #c0c0c0;
+            color: #000;
+            border: 1px solid;
+            border-color: #fff #404040 #404040 #fff;
+            font-size: 11px;
             cursor: pointer;
             line-height: 1;
-            padding: 0 0.25rem;
+            padding: 0 6px;
+            font-family: inherit;
         }
         .mail-window-close:hover {
-            opacity: 0.7;
+            background: #d4d0c8;
+        }
+        .mail-window-close:active {
+            border-color: #404040 #fff #fff #404040;
         }
         .mail-window-body {
-            padding: 1rem;
+            padding: 12px;
+            background: #fff;
+            border: 1px solid #808080;
+            margin: 2px;
         }
         .mail-row {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
+            gap: 8px;
+            margin-bottom: 8px;
         }
         .mail-row label {
-            font-weight: 600;
-            font-size: 0.875rem;
-            min-width: 60px;
+            font-weight: 400;
+            font-size: 11px;
+            min-width: 52px;
         }
         .mail-row input {
             flex: 1;
-            padding: 0.375rem 0.5rem;
-            border: 1px solid #cbd5e1;
+            padding: 2px 4px;
+            border: 2px solid;
+            border-color: #404040 #fff #fff #404040;
             font-family: inherit;
-            font-size: 0.875rem;
+            font-size: 11px;
+            background: #fff;
         }
         .mail-row input:read-only {
-            background: #f1f5f9;
-            color: #64748b;
+            background: #d4d0c8;
+            color: #000;
         }
         .mail-row input:focus {
-            outline: 2px solid #2563eb;
-            outline-offset: -1px;
+            outline: 1px dotted #000;
         }
         .mail-send-btn {
-            background: #2563eb;
-            color: #fff;
-            border: none;
-            padding: 0.375rem 1rem;
+            background: #c0c0c0;
+            color: #000;
+            border: 2px solid;
+            border-color: #fff #404040 #404040 #fff;
+            padding: 2px 12px;
             font-family: inherit;
-            font-size: 0.875rem;
-            font-weight: 600;
+            font-size: 11px;
             cursor: pointer;
             flex-shrink: 0;
         }
         .mail-send-btn:hover {
-            background: #1d4ed8;
+            background: #d4d0c8;
+        }
+        .mail-send-btn:active {
+            border-color: #404040 #fff #fff #404040;
         }
         .mail-body-row {
-            margin-top: 0.75rem;
+            margin-top: 10px;
         }
         .mail-body-row textarea {
             width: 100%;
-            min-height: 120px;
-            padding: 0.5rem;
-            border: 1px solid #cbd5e1;
+            min-height: 100px;
+            padding: 4px;
+            border: 2px solid;
+            border-color: #404040 #fff #fff #404040;
             font-family: inherit;
-            font-size: 0.875rem;
+            font-size: 11px;
             resize: vertical;
+            background: #fff;
         }
         .mail-body-row textarea:focus {
-            outline: 2px solid #2563eb;
-            outline-offset: -1px;
+            outline: 1px dotted #000;
         }
         .mail-status {
-            margin-top: 0.5rem;
-            font-size: 0.8rem;
+            margin-top: 6px;
+            font-size: 11px;
             min-height: 1.2em;
         }
         .mail-status.success {
-            color: #16a34a;
+            color: #000080;
         }
         .mail-status.error {
-            color: #dc2626;
+            color: #800000;
         }
     </style>
 </head>
@@ -20530,8 +20547,13 @@
         const targetY = rect.top + (210 / 800) * rect.height;
         
         // Position button relative to figAngel, centered on the target point
-        const btnX = targetX - figRect.left - (mailBtn.offsetWidth / 2) - 150;
-        const btnY = targetY - figRect.top - (mailBtn.offsetHeight / 2) - 50;
+        let btnX = targetX - figRect.left - (mailBtn.offsetWidth / 2) - 150;
+        let btnY = targetY - figRect.top - (mailBtn.offsetHeight / 2) - 50;
+        
+        if (window.innerWidth <= 700) {
+            btnX += 50;
+            btnY += 0;
+        }
         
         mailBtn.style.left = btnX + 'px';
         mailBtn.style.top = btnY + 'px';
