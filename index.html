@@ -259,14 +259,8 @@
             color: #800000;
         }
 
-        /* Desktop: larger mail window text and mail icon (~2x) */
+        /* Desktop: larger mail window text (~2x) */
         @media (min-width: 701px) {
-            .mail-btn {
-                width: clamp(6rem, 16vw, 9rem);
-            }
-            .mail-btn .mail-caption {
-                font-size: clamp(1.3rem, 3vw, 1.6rem);
-            }
             .mail-window,
             .mail-window-header,
             .mail-window-close,
@@ -20609,9 +20603,6 @@
         if (window.innerWidth <= 700) {
             btnX += 40;
             btnY += 10;
-        } else {
-            btnX -= 10;
-            btnY -= 10;
         }
         
         mailBtn.style.left = btnX + 'px';
