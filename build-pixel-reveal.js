@@ -42,7 +42,7 @@ const html = `<!DOCTYPE html>
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 0;
+            padding: 15vh 0 0 0;
             cursor: url("${cursorDataUrl}") 8 2, auto;
         }
         .header {
@@ -97,7 +97,6 @@ const html = `<!DOCTYPE html>
             body {
                 height: 100vh;
                 overflow: hidden;
-                padding-top: 15vh;
             }
             .header {
                 padding: clamp(0.75rem, 2vw, 1.5rem) clamp(0.5rem, 2vw, 1rem);
