@@ -20684,8 +20684,10 @@
         mailStatus.className = 'mail-status';
     }
 
-    // Send email (uses mailto as fallback since no backend)
-    function sendEmail() {
+    // Send email via Web3Forms
+    const WEB3FORMS_ACCESS_KEY = '2de8b553-8cd7-4320-bfbf-8db3606db563';
+
+    async function sendEmail() {
         const from = mailFrom.value.trim();
         const subject = mailSubject.value.trim();
         const body = mailBody.value.trim();
@@ -20698,22 +20700,48 @@
             return;
         }
 
-        // Construct mailto link
-        const mailto = 'mailto:jm@marziale.tech' +
-            '?subject=' + encodeURIComponent(subject) +
-            '&body=' + encodeURIComponent('From: ' + from + '\n\n' + body);
-        
-        window.location.href = mailto;
-        
-        mailStatus.textContent = 'Opening your email client...';
-        mailStatus.className = 'mail-status success';
-        
-        // Clear form after a moment
-        setTimeout(function() {
-            mailFrom.value = '';
-            mailSubject.value = '';
-            mailBody.value = '';
-        }, 1000);
+        // Disable button while sending
+        mailSendBtn.disabled = true;
+        mailSendBtn.textContent = 'Sending...';
+        mailStatus.textContent = '';
+        mailStatus.className = 'mail-status';
+
+        try {
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    access_key: WEB3FORMS_ACCESS_KEY,
+                    subject: subject,
+                    from_name: 'Marziale Website',
+                    message: 'Reply to ' + from + '\n\n' + body
+                })
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                mailStatus.textContent = 'Sent!';
+                mailStatus.className = 'mail-status success';
+                // Clear form
+                mailFrom.value = '';
+                mailSubject.value = '';
+                mailBody.value = '';
+            } else {
+                mailStatus.textContent = 'Failed to send. Please try again.';
+                mailStatus.className = 'mail-status error';
+            }
+        } catch (error) {
+            mailStatus.textContent = 'Failed to send. Please try again.';
+            mailStatus.className = 'mail-status error';
+        }
+
+        // Re-enable button
+        mailSendBtn.disabled = false;
+        mailSendBtn.textContent = 'Send';
     }
 
     // Initialize
