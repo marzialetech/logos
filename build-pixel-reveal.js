@@ -110,9 +110,8 @@ const html = `<!DOCTYPE html>
                 max-width: 60vw;
             }
             .stage .figure:nth-child(1) {
-                align-self: end;
-                margin-top: 0;
-                margin-bottom: clamp(1rem, 4vw, 2rem);
+                align-self: center;
+                margin-top: clamp(4rem, 12vw, 8rem);
             }
             .stage .figure:nth-child(2) {
                 align-self: start;
