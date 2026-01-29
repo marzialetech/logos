@@ -20650,15 +20650,17 @@
         const subject = mailSubject.value.trim();
         const body = mailBody.value.trim();
 
-        if (!from || !from.includes('@')) {
-            mailStatus.textContent = 'Please enter a valid email address';
-            mailStatus.className = 'mail-status error';
+        // Validate all fields
+        const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(from);
+        if (!emailValid || !subject || !body) {
+            // Trigger validation display
+            mailFrom.dispatchEvent(new Event('input'));
             return;
         }
 
         // Construct mailto link
         const mailto = 'mailto:jm@marziale.tech' +
-            '?subject=' + encodeURIComponent(subject || 'Message from website') +
+            '?subject=' + encodeURIComponent(subject) +
             '&body=' + encodeURIComponent('From: ' + from + '\n\n' + body);
         
         window.location.href = mailto;
@@ -20688,6 +20690,38 @@
 
         mailWindowClose.addEventListener('click', closeMailWindow);
         mailSendBtn.addEventListener('click', sendEmail);
+
+        // Real-time validation
+        function validateForm() {
+            const errors = [];
+            const from = mailFrom.value.trim();
+            const subject = mailSubject.value.trim();
+            const body = mailBody.value.trim();
+
+            if (!from) {
+                errors.push('From email is required');
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(from)) {
+                errors.push('From email is invalid');
+            }
+            if (!subject) {
+                errors.push('Subject is required');
+            }
+            if (!body) {
+                errors.push('Message is required');
+            }
+
+            if (errors.length > 0) {
+                mailStatus.textContent = errors.join(' • ');
+                mailStatus.className = 'mail-status error';
+            } else {
+                mailStatus.textContent = '';
+                mailStatus.className = 'mail-status';
+            }
+        }
+
+        mailFrom.addEventListener('input', validateForm);
+        mailSubject.addEventListener('input', validateForm);
+        mailBody.addEventListener('input', validateForm);
 
         // Reposition on resize
         window.addEventListener('resize', positionMailBtn);
