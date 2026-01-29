@@ -76,20 +76,25 @@
             padding: clamp(0.5rem, 1.5vw, 1rem) 0;
             overflow: hidden;
             flex-shrink: 0;
+            margin-bottom: clamp(0.75rem, 2vw, 1.5rem);
         }
         .reel-track {
             display: flex;
-            gap: clamp(2rem, 5vw, 4rem);
+            align-items: center;
+            gap: clamp(6rem, 15vw, 12rem);
             animation: marquee 20s linear infinite;
             width: max-content;
         }
-        .reel-track span {
-            font-size: clamp(0.875rem, 2vw, 1.25rem);
-            font-weight: 500;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            white-space: nowrap;
-            color: #fff;
+        .reel-track img {
+            height: clamp(1.5rem, 4vw, 2.5rem);
+            width: auto;
+            object-fit: contain;
+        }
+        .reel-track img.logo-lg {
+            height: clamp(4.5rem, 12vw, 7.5rem);
+        }
+        .reel-track img.logo-md {
+            height: clamp(3rem, 8vw, 5rem);
         }
         @keyframes marquee {
             0% { transform: translateX(0); }
@@ -20300,18 +20305,16 @@
 
     <div class="reel">
         <div class="reel-track">
-            <span>Client One</span>
-            <span>Client Two</span>
-            <span>Client Three</span>
-            <span>Client Four</span>
-            <span>Client Five</span>
-            <span>Client Six</span>
-            <span>Client One</span>
-            <span>Client Two</span>
-            <span>Client Three</span>
-            <span>Client Four</span>
-            <span>Client Five</span>
-            <span>Client Six</span>
+            <img class="logo-lg" src="client-blizzard.svg" alt="The Blizzard">
+            <img class="logo-lg" src="client-moose.svg" alt="Hometown Country Moose">
+            <img class="logo-md" src="client-pixamation.svg" alt="Pixamation Inc.">
+            <img class="logo-lg" src="client-redbarn.svg" alt="Red Barn Meats Inc.">
+            <img src="client-shue.svg" alt="Shue">
+            <img class="logo-lg" src="client-blizzard.svg" alt="The Blizzard">
+            <img class="logo-lg" src="client-moose.svg" alt="Hometown Country Moose">
+            <img class="logo-md" src="client-pixamation.svg" alt="Pixamation Inc.">
+            <img class="logo-lg" src="client-redbarn.svg" alt="Red Barn Meats Inc.">
+            <img src="client-shue.svg" alt="Shue">
         </div>
     </div>
 

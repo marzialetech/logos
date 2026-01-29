@@ -103,20 +103,28 @@ const html = `<!DOCTYPE html>
             padding: clamp(0.5rem, 1.5vw, 1rem) 0;
             overflow: hidden;
             flex-shrink: 0;
+            margin-bottom: clamp(0.75rem, 2vw, 1.5rem);
         }
         .reel-track {
             display: flex;
-            gap: clamp(2rem, 5vw, 4rem);
-            animation: marquee 20s linear infinite;
+            animation: marquee 25s linear infinite;
             width: max-content;
         }
-        .reel-track span {
-            font-size: clamp(0.875rem, 2vw, 1.25rem);
-            font-weight: 500;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            white-space: nowrap;
-            color: #fff;
+        .reel-set {
+            display: flex;
+            gap: clamp(2rem, 5vw, 4rem);
+            flex-shrink: 0;
+        }
+        .reel-set span,
+        .reel-set img {
+            display: block;
+            height: clamp(1.25rem, 3vw, 2rem);
+            width: auto;
+            max-width: clamp(4rem, 12vw, 8rem);
+            object-fit: contain;
+        }
+        .reel-set img {
+            /* SVGs are white on transparent */
         }
         @keyframes marquee {
             0% { transform: translateX(0); }
@@ -165,18 +173,20 @@ ${angelInline}
 
     <div class="reel">
         <div class="reel-track">
-            <span>Client One</span>
-            <span>Client Two</span>
-            <span>Client Three</span>
-            <span>Client Four</span>
-            <span>Client Five</span>
-            <span>Client Six</span>
-            <span>Client One</span>
-            <span>Client Two</span>
-            <span>Client Three</span>
-            <span>Client Four</span>
-            <span>Client Five</span>
-            <span>Client Six</span>
+            <div class="reel-set">
+                <img src="client-shue.svg" alt="SHUE"/>
+                <img src="client-pixamation.svg" alt="PIXAMATION Inc."/>
+                <img src="client-redbarn.svg" alt="RED BARN MEATS"/>
+                <img src="client-blizzard.svg" alt="the BLIZZARD"/>
+                <img src="client-moose.svg" alt="HOMETOWN COUNTRY MOOSE"/>
+            </div>
+            <div class="reel-set">
+                <img src="client-shue.svg" alt="SHUE"/>
+                <img src="client-pixamation.svg" alt="PIXAMATION Inc."/>
+                <img src="client-redbarn.svg" alt="RED BARN MEATS"/>
+                <img src="client-blizzard.svg" alt="the BLIZZARD"/>
+                <img src="client-moose.svg" alt="HOMETOWN COUNTRY MOOSE"/>
+            </div>
         </div>
     </div>
 
