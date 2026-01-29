@@ -60,6 +60,7 @@
         }
         .stage .figure:nth-child(2) {
             margin-top: 0;
+            position: relative;
         }
         .stage .figure svg {
             display: block;
@@ -93,6 +94,141 @@
                 align-self: start;
                 margin-top: clamp(1rem, 4vw, 2rem);
             }
+        }
+
+        /* Mail Button & Window */
+        .mail-btn {
+            position: absolute;
+            background: #fff;
+            color: #2563eb;
+            border: 2px solid #fff;
+            padding: 0.5rem 1rem;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: clamp(0.75rem, 2vw, 1rem);
+            font-weight: 600;
+            cursor: grab;
+            user-select: none;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .mail-btn:active {
+            cursor: grabbing;
+        }
+        .mail-btn:hover {
+            background: #2563eb;
+            color: #fff;
+        }
+
+        .mail-window {
+            position: fixed;
+            background: #fff;
+            color: #1e293b;
+            border: 2px solid #fff;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+            z-index: 200;
+            min-width: 320px;
+            max-width: 90vw;
+            font-family: system-ui, -apple-system, sans-serif;
+            display: none;
+        }
+        .mail-window.open {
+            display: block;
+        }
+        .mail-window-header {
+            background: #2563eb;
+            color: #fff;
+            padding: 0.5rem 0.75rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: grab;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .mail-window-header:active {
+            cursor: grabbing;
+        }
+        .mail-window-close {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.25rem;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0 0.25rem;
+        }
+        .mail-window-close:hover {
+            opacity: 0.7;
+        }
+        .mail-window-body {
+            padding: 1rem;
+        }
+        .mail-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .mail-row label {
+            font-weight: 600;
+            font-size: 0.875rem;
+            min-width: 60px;
+        }
+        .mail-row input {
+            flex: 1;
+            padding: 0.375rem 0.5rem;
+            border: 1px solid #cbd5e1;
+            font-family: inherit;
+            font-size: 0.875rem;
+        }
+        .mail-row input:read-only {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+        .mail-row input:focus {
+            outline: 2px solid #2563eb;
+            outline-offset: -1px;
+        }
+        .mail-send-btn {
+            background: #2563eb;
+            color: #fff;
+            border: none;
+            padding: 0.375rem 1rem;
+            font-family: inherit;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .mail-send-btn:hover {
+            background: #1d4ed8;
+        }
+        .mail-body-row {
+            margin-top: 0.75rem;
+        }
+        .mail-body-row textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 0.5rem;
+            border: 1px solid #cbd5e1;
+            font-family: inherit;
+            font-size: 0.875rem;
+            resize: vertical;
+        }
+        .mail-body-row textarea:focus {
+            outline: 2px solid #2563eb;
+            outline-offset: -1px;
+        }
+        .mail-status {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            min-height: 1.2em;
+        }
+        .mail-status.success {
+            color: #16a34a;
+        }
+        .mail-status.error {
+            color: #dc2626;
         }
     </style>
 </head>
@@ -15129,6 +15265,7 @@
 </svg>
         </div>
         <div class="figure" id="figAngel">
+<button class="mail-btn" id="mailBtn">Mail</button>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Angel silhouette (pixelated)">
 <g fill="currentColor" stroke="none">
 <rect x="570" y="50" width="5" height="5"/>
@@ -20271,6 +20408,31 @@
         </div>
     </div>
 
+    <div class="mail-window" id="mailWindow">
+        <div class="mail-window-header" id="mailWindowHeader">
+            <span>New Message</span>
+            <button class="mail-window-close" id="mailWindowClose">&times;</button>
+        </div>
+        <div class="mail-window-body">
+            <div class="mail-row">
+                <label for="mailTo">To:</label>
+                <input type="email" id="mailTo" value="jm@marziale.tech" readonly>
+            </div>
+            <div class="mail-row">
+                <label for="mailFrom">From:</label>
+                <input type="email" id="mailFrom" placeholder="your@email.com" required>
+            </div>
+            <div class="mail-row">
+                <label for="mailSubject">Subject:</label>
+                <input type="text" id="mailSubject" placeholder="Subject">
+                <button class="mail-send-btn" id="mailSendBtn">Send</button>
+            </div>
+            <div class="mail-body-row">
+                <textarea id="mailBody" placeholder="Write your message here..."></textarea>
+            </div>
+            <div class="mail-status" id="mailStatus"></div>
+        </div>
+    </div>
 
     <script>
 (function () {
@@ -20327,6 +20489,152 @@
         document.addEventListener('DOMContentLoaded', start);
     } else {
         start();
+    }
+})();
+
+// Mail Button & Window functionality
+(function() {
+    const mailBtn = document.getElementById('mailBtn');
+    const mailWindow = document.getElementById('mailWindow');
+    const mailWindowHeader = document.getElementById('mailWindowHeader');
+    const mailWindowClose = document.getElementById('mailWindowClose');
+    const mailSendBtn = document.getElementById('mailSendBtn');
+    const mailFrom = document.getElementById('mailFrom');
+    const mailSubject = document.getElementById('mailSubject');
+    const mailBody = document.getElementById('mailBody');
+    const mailStatus = document.getElementById('mailStatus');
+    const figAngel = document.getElementById('figAngel');
+
+    // Position the mail button above the angel's palm
+    // Angel SVG viewBox is 0 0 1200 800, palm is around x=325, y=165
+    function positionMailBtn() {
+        const svg = figAngel.querySelector('svg');
+        if (!svg) return;
+        const rect = svg.getBoundingClientRect();
+        const figRect = figAngel.getBoundingClientRect();
+        
+        // Palm position in SVG coords: x=325/1200, y=165/800
+        const palmX = rect.left + (325 / 1200) * rect.width;
+        const palmY = rect.top + (165 / 800) * rect.height;
+        
+        // Position button above palm, relative to figAngel
+        const btnX = palmX - figRect.left - 20;
+        const btnY = palmY - figRect.top - 50;
+        
+        mailBtn.style.left = btnX + 'px';
+        mailBtn.style.top = btnY + 'px';
+    }
+
+    // Make an element draggable
+    function makeDraggable(el, handle) {
+        handle = handle || el;
+        let isDragging = false;
+        let startX, startY, origX, origY;
+
+        function onStart(e) {
+            if (e.target.tagName === 'BUTTON' && e.target !== handle && e.target !== el) return;
+            isDragging = true;
+            const touch = e.touches ? e.touches[0] : e;
+            startX = touch.clientX;
+            startY = touch.clientY;
+            const rect = el.getBoundingClientRect();
+            origX = rect.left;
+            origY = rect.top;
+            el.style.position = 'fixed';
+            el.style.left = origX + 'px';
+            el.style.top = origY + 'px';
+            el.style.margin = '0';
+            e.preventDefault();
+        }
+
+        function onMove(e) {
+            if (!isDragging) return;
+            const touch = e.touches ? e.touches[0] : e;
+            const dx = touch.clientX - startX;
+            const dy = touch.clientY - startY;
+            el.style.left = (origX + dx) + 'px';
+            el.style.top = (origY + dy) + 'px';
+        }
+
+        function onEnd() {
+            isDragging = false;
+        }
+
+        handle.addEventListener('mousedown', onStart);
+        handle.addEventListener('touchstart', onStart, { passive: false });
+        document.addEventListener('mousemove', onMove);
+        document.addEventListener('touchmove', onMove, { passive: false });
+        document.addEventListener('mouseup', onEnd);
+        document.addEventListener('touchend', onEnd);
+    }
+
+    // Open mail window
+    function openMailWindow() {
+        const btnRect = mailBtn.getBoundingClientRect();
+        mailWindow.style.left = Math.max(10, btnRect.left - 100) + 'px';
+        mailWindow.style.top = Math.max(10, btnRect.bottom + 10) + 'px';
+        mailWindow.classList.add('open');
+    }
+
+    // Close mail window
+    function closeMailWindow() {
+        mailWindow.classList.remove('open');
+        mailStatus.textContent = '';
+        mailStatus.className = 'mail-status';
+    }
+
+    // Send email (uses mailto as fallback since no backend)
+    function sendEmail() {
+        const from = mailFrom.value.trim();
+        const subject = mailSubject.value.trim();
+        const body = mailBody.value.trim();
+
+        if (!from || !from.includes('@')) {
+            mailStatus.textContent = 'Please enter a valid email address';
+            mailStatus.className = 'mail-status error';
+            return;
+        }
+
+        // Construct mailto link
+        const mailto = 'mailto:jm@marziale.tech' +
+            '?subject=' + encodeURIComponent(subject || 'Message from website') +
+            '&body=' + encodeURIComponent('From: ' + from + '\n\n' + body);
+        
+        window.location.href = mailto;
+        
+        mailStatus.textContent = 'Opening your email client...';
+        mailStatus.className = 'mail-status success';
+        
+        // Clear form after a moment
+        setTimeout(function() {
+            mailFrom.value = '';
+            mailSubject.value = '';
+            mailBody.value = '';
+        }, 1000);
+    }
+
+    // Initialize
+    function init() {
+        positionMailBtn();
+        makeDraggable(mailBtn);
+        makeDraggable(mailWindow, mailWindowHeader);
+
+        mailBtn.addEventListener('click', function(e) {
+            if (e.detail === 0) return; // Ignore if triggered by drag
+            openMailWindow();
+        });
+
+        mailWindowClose.addEventListener('click', closeMailWindow);
+        mailSendBtn.addEventListener('click', sendEmail);
+
+        // Reposition on resize
+        window.addEventListener('resize', positionMailBtn);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
     }
 })();
     </script>
