@@ -20505,21 +20505,21 @@
     const mailStatus = document.getElementById('mailStatus');
     const figAngel = document.getElementById('figAngel');
 
-    // Position the mail button above the angel's palm
-    // Angel SVG viewBox is 0 0 1200 800, palm is around x=325, y=165
+    // Position the mail button near the angel's extended arm
+    // Angel SVG viewBox is 0 0 1200 800
     function positionMailBtn() {
         const svg = figAngel.querySelector('svg');
         if (!svg) return;
         const rect = svg.getBoundingClientRect();
         const figRect = figAngel.getBoundingClientRect();
         
-        // Palm position in SVG coords: x=325/1200, y=165/800
-        const palmX = rect.left + (325 / 1200) * rect.width;
-        const palmY = rect.top + (165 / 800) * rect.height;
+        // Position in SVG coords: x=780, y=210 (to the left of angel's body, near arm level)
+        const targetX = rect.left + (780 / 1200) * rect.width;
+        const targetY = rect.top + (210 / 800) * rect.height;
         
-        // Position button above palm, relative to figAngel
-        const btnX = palmX - figRect.left - 20;
-        const btnY = palmY - figRect.top - 50;
+        // Position button relative to figAngel, centered on the target point
+        const btnX = targetX - figRect.left - (mailBtn.offsetWidth / 2);
+        const btnY = targetY - figRect.top - (mailBtn.offsetHeight / 2);
         
         mailBtn.style.left = btnX + 'px';
         mailBtn.style.top = btnY + 'px';
