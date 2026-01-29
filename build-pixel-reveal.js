@@ -179,5 +179,5 @@ ${angelInline}
 </html>
 `;
 
-fs.writeFileSync(path.join(dir, 'pixel-reveal.html'), html, 'utf8');
-console.log('Wrote pixel-reveal.html (logo + angel + man on boat, filled layout, ample spacing).');
+fs.writeFileSync(path.join(dir, 'index.html'), html, 'utf8');
+console.log('Wrote index.html (logo + angel + man on boat, filled layout, ample spacing).');
