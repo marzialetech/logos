@@ -20851,10 +20851,11 @@
 
     // Open about window
     function openAboutWindow() {
-        const btnRect = aboutBtn.getBoundingClientRect();
-        aboutWindow.style.left = Math.max(10, btnRect.left - 50) + 'px';
-        aboutWindow.style.top = Math.max(10, btnRect.bottom + 10) + 'px';
         aboutWindow.classList.add('open');
+        const w = aboutWindow.offsetWidth;
+        const h = aboutWindow.offsetHeight;
+        aboutWindow.style.left = Math.max(10, (window.innerWidth - w) / 2) + 'px';
+        aboutWindow.style.top = Math.max(10, (window.innerHeight - h) / 2) + 'px';
     }
 
     // Close about window
