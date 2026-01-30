@@ -15451,12 +15451,12 @@
 <rect x="695" y="755" width="5" height="5"/>
 </g>
 </svg>
-        </div>
-        <div class="figure" id="figAngel">
 <button class="mail-btn" id="mailBtn" type="button">
             <img src="assets/brand/mail-icon.png" alt="" draggable="false">
             <span class="mail-caption">Contact</span>
         </button>
+        </div>
+        <div class="figure" id="figAngel">
         <button class="desktop-icon" id="aboutBtn" type="button">
             <img src="assets/brand/about-icon.png" alt="" draggable="false">
             <span class="icon-caption">About</span>
@@ -20714,6 +20714,7 @@
     const mailBody = document.getElementById('mailBody');
     const mailStatus = document.getElementById('mailStatus');
     const figAngel = document.getElementById('figAngel');
+    const figManOnBoatForMail = document.getElementById('figManOnBoat');
 
     // About button & window
     const aboutBtn = document.getElementById('aboutBtn');
@@ -20721,24 +20722,25 @@
     const aboutWindowHeader = document.getElementById('aboutWindowHeader');
     const aboutWindowClose = document.getElementById('aboutWindowClose');
 
-    // Position the mail button near the angel's extended arm
-    // Angel SVG viewBox is 0 0 1200 800
+    // Position the mail button near the man on boat's hand
+    // Man on boat SVG viewBox is 0 0 1200 800
     function positionMailBtn() {
-        const svg = figAngel.querySelector('svg[viewBox="0 0 1200 800"]');
+        const svg = figManOnBoatForMail.querySelector('svg[viewBox="0 0 1200 800"]');
         if (!svg) return;
         const rect = svg.getBoundingClientRect();
-        const figRect = figAngel.getBoundingClientRect();
+        const figRect = figManOnBoatForMail.getBoundingClientRect();
         
-        // Position in SVG coords: x=780, y=210 (swapped with About — Contact is lower/left)
-        const targetX = rect.left + (780 / 1200) * rect.width;
-        const targetY = rect.top + (210 / 800) * rect.height;
+        // Position relative to man on boat's hand area
+        // Adjust these SVG coords (x=450, y=350) to match the hand position
+        const targetX = rect.left + (450 / 1200) * rect.width;
+        const targetY = rect.top + (350 / 800) * rect.height;
         
-        let btnX = targetX - figRect.left - (mailBtn.offsetWidth / 2) - 70 - 775;
-        let btnY = targetY - figRect.top - (mailBtn.offsetHeight / 2) + 30 + 225;
+        let btnX = targetX - figRect.left - (mailBtn.offsetWidth / 2);
+        let btnY = targetY - figRect.top - (mailBtn.offsetHeight / 2);
         
         if (window.innerWidth <= 700) {
-            btnX += 640;
-            btnY += 10;
+            btnX += 0;
+            btnY += 0;
         }
         
         mailBtn.style.left = btnX + 'px';
