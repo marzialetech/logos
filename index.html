@@ -20736,8 +20736,8 @@
         const targetX = rect.left + (450 / 1200) * rect.width;
         const targetY = rect.top + (350 / 800) * rect.height;
         
-        let btnX = targetX - figRect.left - (mailBtn.offsetWidth / 2);
-        let btnY = targetY - figRect.top - (mailBtn.offsetHeight / 2);
+        let btnX = targetX - figRect.left - (mailBtn.offsetWidth / 2) + 30;
+        let btnY = targetY - figRect.top - (mailBtn.offsetHeight / 2) - 100;
         
         if (window.innerWidth <= 700) {
             btnX += 0;
@@ -20758,7 +20758,7 @@
         const targetX = rect.left + (780 / 1200) * rect.width;
         const targetY = rect.top + (210 / 800) * rect.height;
         
-        let btnX = targetX - figRect.left - (aboutBtn.offsetWidth / 2) - 150;
+        let btnX = targetX - figRect.left - (aboutBtn.offsetWidth / 2) - 175;
         let btnY = targetY - figRect.top - (aboutBtn.offsetHeight / 2) - 50;
         
         if (window.innerWidth <= 700) {
