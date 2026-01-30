@@ -20779,11 +20779,11 @@
         aboutBtn.style.top = btnY + 'px';
     }
 
-    // Position the Login button centered on the webpage
+    // Position the Login button at 75% right, 75% down
     function positionLoginBtn() {
         const figRect = figAngel.getBoundingClientRect();
-        const btnX = (window.innerWidth / 2) - (loginBtn.offsetWidth / 2) - figRect.left;
-        const btnY = (window.innerHeight / 2) - (loginBtn.offsetHeight / 2) - figRect.top;
+        const btnX = (window.innerWidth * 0.75) - (loginBtn.offsetWidth / 2) - figRect.left;
+        const btnY = (window.innerHeight * 0.75) - (loginBtn.offsetHeight / 2) - figRect.top;
         loginBtn.style.left = btnX + 'px';
         loginBtn.style.top = btnY + 'px';
     }
