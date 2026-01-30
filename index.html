@@ -21,7 +21,6 @@
             flex-direction: column;
             align-items: center;
             padding: 0;
-            cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%20451%20559%22%20preserveAspectRatio%3D%22xMidYMid%20meet%22%3E%0A%3Cg%20transform%3D%22translate(0%2C559)%20scale(0.1%2C-0.1)%22%20fill%3D%22%23fff%22%20stroke%3D%22none%22%3E%0A%3Cpath%20d%3D%22M1360%205300%20l0%20-129%20-132%20-3%20-133%20-3%20-3%20-1067%20-2%20-1068%20-125%200%20-125%200%0A0%20125%200%20125%20-360%200%20-360%200%200%20-360%200%20-360%20120%200%20119%200%203%20-132%203%20-133%20118%20-3%0A117%20-3%200%20-239%200%20-240%20120%200%20120%200%200%20-250%200%20-250%20120%200%20120%200%200%20-235%200%20-235%0A130%200%20130%200%200%20-365%200%20-365%201235%200%201235%200%200%20365%200%20365%20125%200%20125%200%200%20360%200%20360%0A130%200%20130%200%200%20835%200%20835%20-130%200%20-129%200%20-3%20123%20-3%20122%20-122%203%20-122%203%20-3%20122%20-3%0A122%20-247%203%20-248%202%200%20110%200%20110%20-355%200%20-355%200%200%20120%200%20120%20-245%200%20-245%200%200%20490%0A0%20490%20-130%200%20-130%200%200%20130%200%20130%20-245%200%20-245%200%200%20-130z%20m490%20-1215%20l0%20-1085%0A130%200%20130%200%200%20475%200%20475%20245%200%20245%200%200%20-475%200%20-475%20135%200%20135%200%200%20360%200%20360%0A215%200%20215%200%200%20-490%200%20-490%20135%200%20135%200%200%20365%200%20366%20117%20-3%20116%20-3%200%20-117%20-1%0A-118%20129%200%20129%200%20-2%20-832%20-3%20-833%20-132%20-3%20-133%20-3%200%20-359%200%20-360%20-120%200%20-120%0A0%200%20-235%200%20-235%20-970%200%20-970%200%20-2%20233%20-3%20232%20-132%203%20-133%203%200%20234%200%20235%20-115%0A0%20-115%200%200%20250%200%20249%20-122%203%20-123%203%20-3%20240%20-2%20240%20-118%20-1%20c-78%20-1%20-119%202%0A-124%2010%20-4%206%20-8%2066%20-8%20134%20l0%20122%20-120%200%20-120%200%200%20235%200%20235%20235%200%20235%200%200%0A-115%200%20-115%20125%200%20125%200%200%20-245%200%20-245%20135%200%20135%200%200%201430%200%201430%20245%200%20245%200%0A0%20-1085z%22%2F%3E%0A%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A") 8 2, auto;
         }
         .header {
             width: 100%;
@@ -99,7 +98,40 @@
             }
         }
 
-        /* Mail Button & Window */
+        /* Desktop Icons (Mail, About, etc.) */
+        .desktop-icon {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            background: transparent;
+            border: none;
+            padding: 0.5rem;
+            cursor: grab;
+            user-select: none;
+            z-index: 100;
+            width: clamp(3rem, 8vw, 4.5rem);
+        }
+        .desktop-icon:active {
+            cursor: grabbing;
+        }
+        .desktop-icon img,
+        .desktop-icon svg {
+            display: block;
+            width: 100%;
+            height: clamp(2.5rem, 6vw, 3.5rem);
+            object-fit: contain;
+        }
+        .desktop-icon .icon-caption {
+            font-family: "W95FA", "MS Sans Serif", "Microsoft Sans Serif", Geneva, sans-serif;
+            font-size: clamp(0.65rem, 1.5vw, 0.8rem);
+            font-weight: 400;
+            color: #fff;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* Mail button */
         .mail-btn {
             position: absolute;
             display: flex;
@@ -120,7 +152,7 @@
         .mail-btn img {
             display: block;
             width: 100%;
-            height: auto;
+            height: clamp(2.5rem, 6vw, 3.5rem);
             object-fit: contain;
         }
         .mail-btn .mail-caption {
@@ -304,6 +336,86 @@
             .mail-row input,
             .mail-body-row textarea {
                 font-size: 16px;
+            }
+        }
+
+        /* About Window (Notepad style) */
+        .about-window {
+            position: fixed;
+            background: #c0c0c0;
+            color: #000;
+            border: 2px solid;
+            border-color: #dfdfdf #000 #000 #dfdfdf;
+            box-shadow: 2px 2px 0 #404040;
+            z-index: 200;
+            width: 420px;
+            max-width: 90vw;
+            font-family: inherit;
+            display: none;
+            font-size: 11px;
+        }
+        .about-window.open {
+            display: block;
+        }
+        .about-window-header {
+            background: linear-gradient(90deg, #000080 0%, #1084d0 100%);
+            color: #fff;
+            padding: 3px 6px 4px 6px;
+            font-size: 11px;
+            cursor: grab;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #000;
+        }
+        .about-window-header:active {
+            cursor: grabbing;
+        }
+        .about-window-close {
+            background: #c0c0c0;
+            color: #000;
+            border: 1px solid;
+            border-color: #fff #404040 #404040 #fff;
+            font-size: 11px;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0 6px;
+            font-family: inherit;
+        }
+        .about-window-close:hover {
+            background: #d4d0c8;
+        }
+        .about-window-close:active {
+            border-color: #404040 #fff #fff #404040;
+        }
+        .about-window-body {
+            background: #fff;
+            border: 2px solid;
+            border-color: #404040 #fff #fff #404040;
+            margin: 2px;
+            padding: 8px;
+            height: 300px;
+            max-height: 50vh;
+            overflow-y: auto;
+            font-family: Consolas, Monaco, "Courier New", monospace;
+            font-size: 6.6px;
+            line-height: 1;
+            white-space: pre;
+        }
+
+        @media (min-width: 701px) {
+            .about-window,
+            .about-window-header,
+            .about-window-close {
+                font-size: 18px;
+            }
+            .about-window {
+                width: 600px;
+            }
+            .about-window-body {
+                font-size: 9.6px;
+                height: 400px;
+                padding: 16px;
             }
         }
     </style>
@@ -15342,8 +15454,12 @@
         </div>
         <div class="figure" id="figAngel">
 <button class="mail-btn" id="mailBtn" type="button">
-            <img src="assets/brand/mail-icon.png" alt="">
-            <span class="mail-caption">Mail</span>
+            <img src="assets/brand/mail-icon.png" alt="" draggable="false">
+            <span class="mail-caption">Contact</span>
+        </button>
+        <button class="desktop-icon" id="aboutBtn" type="button">
+            <img src="assets/brand/about-icon.png" alt="" draggable="false">
+            <span class="icon-caption">About</span>
         </button>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Angel silhouette (pixelated)">
 <g fill="currentColor" stroke="none">
@@ -20513,6 +20629,21 @@
         </div>
     </div>
 
+    <div class="about-window" id="aboutWindow">
+        <div class="about-window-header" id="aboutWindowHeader">
+            <span>About</span>
+            <button class="about-window-close" id="aboutWindowClose">&times;</button>
+        </div>
+        <div class="about-window-body" id="aboutWindowBody"> ▄▀▀▄ ▄▀▄  ▄▀▀█▄   ▄▀▀▄▀▀▀▄  ▄▀▀▀▀▄   ▄▀▀█▀▄    ▄▀▀█▄   ▄▀▀▀▀▄     ▄▀▀█▄▄▄▄
+█  █ ▀  █ ▐ ▄▀ ▀▄ █   █   █ █     ▄▀ █   █  █  ▐ ▄▀ ▀▄ █    █     ▐  ▄▀   ▐
+▐  █    █   █▄▄▄█ ▐  █▀▀█▀  ▐ ▄▄▀▀   ▐   █  ▐    █▄▄▄█ ▐    █       █▄▄▄▄▄
+  █    █   ▄▀   █  ▄▀    █    █          █      ▄▀   █     █        █    ▌
+▄▀   ▄▀   █   ▄▀  █     █      ▀▄▄▄▄▀ ▄▀▀▀▀▀▄  █   ▄▀    ▄▀▄▄▄▄▄▄▀ ▄▀▄▄▄▄
+█    █    ▐   ▐   ▐     ▐          ▐ █       █ ▐   ▐     █         █    ▐
+▐    ▐                               ▐       ▐           ▐         ▐
+        </div>
+    </div>
+
     <script>
 (function () {
     const DURATION_MS = 5000;
@@ -20584,21 +20715,26 @@
     const mailStatus = document.getElementById('mailStatus');
     const figAngel = document.getElementById('figAngel');
 
+    // About button & window
+    const aboutBtn = document.getElementById('aboutBtn');
+    const aboutWindow = document.getElementById('aboutWindow');
+    const aboutWindowHeader = document.getElementById('aboutWindowHeader');
+    const aboutWindowClose = document.getElementById('aboutWindowClose');
+
     // Position the mail button near the angel's extended arm
     // Angel SVG viewBox is 0 0 1200 800
     function positionMailBtn() {
-        const svg = figAngel.querySelector('svg');
+        const svg = figAngel.querySelector('svg[viewBox="0 0 1200 800"]');
         if (!svg) return;
         const rect = svg.getBoundingClientRect();
         const figRect = figAngel.getBoundingClientRect();
         
-        // Position in SVG coords: x=780, y=210 (to the left of angel's body, near arm level)
+        // Position in SVG coords: x=780, y=210 (swapped with About — Contact is lower/left)
         const targetX = rect.left + (780 / 1200) * rect.width;
         const targetY = rect.top + (210 / 800) * rect.height;
         
-        // Position button relative to figAngel, centered on the target point
-        let btnX = targetX - figRect.left - (mailBtn.offsetWidth / 2) - 150;
-        let btnY = targetY - figRect.top - (mailBtn.offsetHeight / 2) - 50;
+        let btnX = targetX - figRect.left - (mailBtn.offsetWidth / 2) - 70 - 775;
+        let btnY = targetY - figRect.top - (mailBtn.offsetHeight / 2) + 30 + 225;
         
         if (window.innerWidth <= 700) {
             btnX += 40;
@@ -20609,9 +20745,32 @@
         mailBtn.style.top = btnY + 'px';
     }
 
+    // Position the about button (swapped with Contact — About is near angel's arm)
+    function positionAboutBtn() {
+        const svg = figAngel.querySelector('svg[viewBox="0 0 1200 800"]');
+        if (!svg) return;
+        const rect = svg.getBoundingClientRect();
+        const figRect = figAngel.getBoundingClientRect();
+        
+        const targetX = rect.left + (780 / 1200) * rect.width;
+        const targetY = rect.top + (210 / 800) * rect.height;
+        
+        let btnX = targetX - figRect.left - (aboutBtn.offsetWidth / 2) - 150;
+        let btnY = targetY - figRect.top - (aboutBtn.offsetHeight / 2) - 50;
+        
+        if (window.innerWidth <= 700) {
+            btnX += 40;
+            btnY += 10;
+        }
+        
+        aboutBtn.style.left = btnX + 'px';
+        aboutBtn.style.top = btnY + 'px';
+    }
+
     // Make an element draggable (with movement threshold so taps work on mobile)
     const DRAG_THRESHOLD_PX = 10;
     let lastOpenedFromTap = 0;
+    let lastDragEndedAt = 0;
 
     function makeDraggable(el, handle, onTap) {
         handle = handle || el;
@@ -20629,7 +20788,7 @@
             origX = rect.left;
             origY = rect.top;
             dragStarted = false;
-            if (e.touches) e.preventDefault();
+            e.preventDefault(); // Prevent native image drag on all events
         }
 
         function onMove(e) {
@@ -20657,6 +20816,9 @@
                 onTap();
                 lastOpenedFromTap = Date.now();
             }
+            if (dragStarted) {
+                lastDragEndedAt = Date.now();
+            }
             isActive = false;
             dragStarted = false;
         }
@@ -20682,6 +20844,19 @@
         mailWindow.classList.remove('open');
         mailStatus.textContent = '';
         mailStatus.className = 'mail-status';
+    }
+
+    // Open about window
+    function openAboutWindow() {
+        const btnRect = aboutBtn.getBoundingClientRect();
+        aboutWindow.style.left = Math.max(10, btnRect.left - 50) + 'px';
+        aboutWindow.style.top = Math.max(10, btnRect.bottom + 10) + 'px';
+        aboutWindow.classList.add('open');
+    }
+
+    // Close about window
+    function closeAboutWindow() {
+        aboutWindow.classList.remove('open');
     }
 
     // Send email via Web3Forms
@@ -20752,12 +20927,25 @@
 
         mailBtn.addEventListener('click', function(e) {
             if (Date.now() - lastOpenedFromTap < 400) return; // Already opened from tap on mobile
-            if (e.detail === 0) return; // Ignore if triggered by drag
+            if (Date.now() - lastDragEndedAt < 100) return; // Ignore click right after drag
             openMailWindow();
         });
 
         mailWindowClose.addEventListener('click', closeMailWindow);
         mailSendBtn.addEventListener('click', sendEmail);
+
+        // About button & window
+        positionAboutBtn();
+        makeDraggable(aboutBtn, null, openAboutWindow);
+        makeDraggable(aboutWindow, aboutWindowHeader);
+
+        aboutBtn.addEventListener('click', function(e) {
+            if (Date.now() - lastOpenedFromTap < 400) return;
+            if (Date.now() - lastDragEndedAt < 100) return; // Ignore click right after drag
+            openAboutWindow();
+        });
+
+        aboutWindowClose.addEventListener('click', closeAboutWindow);
 
         // Real-time validation
         function validateForm() {
@@ -20792,7 +20980,10 @@
         mailBody.addEventListener('input', validateForm);
 
         // Reposition on resize
-        window.addEventListener('resize', positionMailBtn);
+        window.addEventListener('resize', function() {
+            positionMailBtn();
+            positionAboutBtn();
+        });
     }
 
     if (document.readyState === 'loading') {
