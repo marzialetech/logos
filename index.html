@@ -15466,6 +15466,10 @@
             <img src="assets/brand/about-icon.png" alt="" draggable="false">
             <span class="icon-caption">About</span>
         </button>
+        <button class="desktop-icon" id="loginBtn" type="button">
+            <img src="assets/brand/login-icon.png" alt="" draggable="false">
+            <span class="icon-caption">Login</span>
+        </button>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Angel silhouette (pixelated)">
 <g fill="currentColor" stroke="none">
 <rect x="570" y="50" width="5" height="5"/>
@@ -20726,6 +20730,7 @@
     const aboutWindow = document.getElementById('aboutWindow');
     const aboutWindowHeader = document.getElementById('aboutWindowHeader');
     const aboutWindowClose = document.getElementById('aboutWindowClose');
+    const loginBtn = document.getElementById('loginBtn');
 
     // Position the mail button near the man on boat's hand
     // Man on boat SVG viewBox is 0 0 1200 800
@@ -20772,6 +20777,15 @@
         
         aboutBtn.style.left = btnX + 'px';
         aboutBtn.style.top = btnY + 'px';
+    }
+
+    // Position the Login button centered on the webpage
+    function positionLoginBtn() {
+        const figRect = figAngel.getBoundingClientRect();
+        const btnX = (window.innerWidth / 2) - (loginBtn.offsetWidth / 2) - figRect.left;
+        const btnY = (window.innerHeight / 2) - (loginBtn.offsetHeight / 2) - figRect.top;
+        loginBtn.style.left = btnX + 'px';
+        loginBtn.style.top = btnY + 'px';
     }
 
     // Make an element draggable (with movement threshold so taps work on mobile)
@@ -20955,6 +20969,17 @@
 
         aboutWindowClose.addEventListener('click', closeAboutWindow);
 
+        // Login button
+        positionLoginBtn();
+        makeDraggable(loginBtn, null, function() {
+            window.location.href = 'https://marziale.tech';
+        });
+        loginBtn.addEventListener('click', function(e) {
+            if (Date.now() - lastOpenedFromTap < 400) return;
+            if (Date.now() - lastDragEndedAt < 100) return;
+            window.location.href = 'https://marziale.tech';
+        });
+
         // Real-time validation
         function validateForm() {
             const errors = [];
@@ -20991,6 +21016,7 @@
         window.addEventListener('resize', function() {
             positionMailBtn();
             positionAboutBtn();
+            positionLoginBtn();
         });
     }
 
